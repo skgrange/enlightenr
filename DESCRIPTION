@@ -1,0 +1,29 @@
+Package: enlightenr
+Type: Package
+Title: Convenient and robust functions for fancy statistical techniques
+Version: 0.0.5
+Date: 2016-04-21
+Author: Stuart K. Grange
+Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
+Description: Convenient and robust functions for fancy statistical techniques 
+    which can help find things in data. 
+License: GPL (>= 2)
+Imports:
+    stringr,
+    lubridate,
+    plyr,
+    dplyr,
+    ggplot2,
+    testthat,
+    MASS,
+    quantreg,
+    mblm,
+    zyp,
+    broom,
+    zoo, 
+    kza, 
+    akima,
+    fields,
+    threadr
+Suggests:
+RoxygenNote: 5.0.1
