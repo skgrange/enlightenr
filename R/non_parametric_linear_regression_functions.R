@@ -11,7 +11,7 @@
 #' @import ggplot2
 #' 
 #' @export
-theil_sen_estimator <- function(df, x, y, round = 6, plot = FALSE) {
+theil_sen_estimator <- function(df, y, x, round = 6, plot = FALSE) {
   
   # Drop tbl_df
   df <- threadr::base_df(df)
@@ -60,7 +60,7 @@ theil_sen_estimator <- function(df, x, y, round = 6, plot = FALSE) {
 #' @import ggplot2
 #' 
 #' @export
-siegel_repeated_medians <- function(df, x, y, round = 6, plot = FALSE) {
+siegel_repeated_medians <- function(df, y, x, round = 6, plot = FALSE) {
   
   # Drop tbl_df
   df <- threadr::base_df(df)

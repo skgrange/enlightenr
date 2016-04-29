@@ -5,9 +5,9 @@
 \alias{theil_sen_estimator}
 \title{Functions to apply non-parametric linear regression methods to observations.}
 \usage{
-theil_sen_estimator(df, x, y, round = 6, plot = FALSE)
+theil_sen_estimator(df, y, x, round = 6, plot = FALSE)
 
-siegel_repeated_medians(df, x, y, round = 6, plot = FALSE)
+siegel_repeated_medians(df, y, x, round = 6, plot = FALSE)
 }
 \description{
 The Theil-Sen single median and Siegel repeated medians regression techniques 

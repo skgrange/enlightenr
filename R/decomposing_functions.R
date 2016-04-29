@@ -5,7 +5,8 @@
 #' @import ggplot2
 #' 
 #' @export
-decompose_stl <- function(df, variable = "value", plot = FALSE) {
+decompose_stl <- function(df, variable = "value", plot = FALSE, 
+                          invalidate = TRUE) {
   
   if (!threadr::detect_averaging_period(df$date) == "month")
     df <- openair::timeAverage(df, avg.time = "month")
@@ -48,6 +49,17 @@ decompose_stl <- function(df, variable = "value", plot = FALSE) {
   df_decomposition$deseason <- df_decomposition$trend + df_decomposition$remainder
   df_decomposition <- threadr::add_row_numbers(df_decomposition)
   
+  if (invalidate) {
+    
+    # Invalidate start and end pieces
+    df_decomposition[1:6, -1:-3] <- NA
+    
+    index <- nrow(df_decomposition)
+    index_start <- index - 6
+    df_decomposition[index_start:index, -1:-3] <- NA
+    
+  }
+  
   if (plot) {
     
     # Reshape
@@ -78,7 +90,7 @@ decompose_stl <- function(df, variable = "value", plot = FALSE) {
 #' @author Stuart K. Grange
 #' 
 #' @export
-decompose_kz <- function(df, variable = "value", plot = FALSE) {
+decompose_kz <- function(df, variable = "value", plot = FALSE, invalidate = TRUE) {
   
   # Daily data
   if (!threadr::detect_averaging_period(df$date) == "day")
@@ -115,6 +127,17 @@ decompose_kz <- function(df, variable = "value", plot = FALSE) {
   
   df_decomposition <- threadr::add_row_numbers(df_decomposition)
   
+  if (invalidate) {
+    
+    # Invalidate start and end pieces
+    df_decomposition[1:180, -1:-3] <- NA
+    
+    index <- nrow(df_decomposition)
+    index_start <- index - 180
+    df_decomposition[index_start:index, -1:-3] <- NA
+    
+  }
+  
   if (plot) {
     
     # Reshape
@@ -127,7 +150,7 @@ decompose_kz <- function(df, variable = "value", plot = FALSE) {
     
     # Plot
     plot <- ggplot(df_decomposition_long, aes(date, value, colour = key)) + 
-      geom_line() + facet_wrap("key", scales = "free_y", ncol = 1) + 
+      geom_line(na.rm = TRUE) + facet_wrap("key", scales = "free_y", ncol = 1) + 
       theme(legend.position = "none")
     
     print(plot)

@@ -1,11 +1,13 @@
-#' Function to apply simple linear regression techniques to observations. 
+#' Function to apply linear regression techniques to observations. 
+#' 
+#' \code{y} is a function of \code{x} or \code{y = y(x)}. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @import ggplot2
 #' 
 #' @export
-least_squares_regression <- function(df, x, y, zero_intercept = FALSE,
+least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
                                      weights = NULL,  round = 6, plot = FALSE) {
   
   # Drop tbl_df
@@ -51,9 +53,10 @@ least_squares_regression <- function(df, x, y, zero_intercept = FALSE,
 }
 
 
+#' @rdname least_squares_regression
 #' @import ggplot2
 #' @export
-robust_linear_regression <- function(df, x, y, zero_intercept = FALSE,
+robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
                                      weights = NULL, method = "M", round = 6,
                                      plot = FALSE) {
   
@@ -80,6 +83,8 @@ robust_linear_regression <- function(df, x, y, zero_intercept = FALSE,
     
     m <- extract_slope(fit)
     c <- extract_intercept(fit)
+    # 
+    c <- ifelse(is.null(c), NA, c)
     c <- ifelse(is.na(c), 0, c)
     
     # Add method
@@ -100,8 +105,10 @@ robust_linear_regression <- function(df, x, y, zero_intercept = FALSE,
 }
 
 
+#' @rdname least_squares_regression
+#' @import ggplot2
 #' @export
-quantile_regression <- function(df, x, y, zero_intercept = FALSE,
+quantile_regression <- function(df, y, x, zero_intercept = FALSE,
                                 weights = NULL, tau = 0.5, method = "br", 
                                 round = 6, plot = FALSE) {
   
@@ -129,6 +136,8 @@ quantile_regression <- function(df, x, y, zero_intercept = FALSE,
     
     m <- extract_slope(fit)
     c <- extract_intercept(fit)
+    # 
+    c <- ifelse(is.null(c), NA, c)
     c <- ifelse(is.na(c), 0, c)
     
     # Add method
