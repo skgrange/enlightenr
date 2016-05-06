@@ -5,7 +5,7 @@
 \title{Function to quickly plot many quantiles regression lines on a scatterplot.}
 \usage{
 plot_many_quantiles(df, y, x, type = "scatterplot", taus = seq(0.05, 0.95,
-  by = 0.05))
+  by = 0.05), square = FALSE)
 }
 \arguments{
 \item{df}{Data frame.}
@@ -18,6 +18,9 @@ plot_many_quantiles(df, y, x, type = "scatterplot", taus = seq(0.05, 0.95,
 \code{"coefficients"}.}
 
 \item{taus}{Quantiles to plot. Default uses \code{seq(0.05, 0.95, by = 0.05)}.}
+
+\item{square}{Should the data be plotted with square axes? Default is 
+\code{FALSE}.}
 }
 \description{
 Function to quickly plot many quantiles regression lines on a scatterplot.

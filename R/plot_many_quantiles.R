@@ -11,11 +11,15 @@
 #' 
 #' @param taus Quantiles to plot. Default uses \code{seq(0.05, 0.95, by = 0.05)}. 
 #' 
+#' @param square Should the data be plotted with square axes? Default is 
+#' \code{FALSE}. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @export
 plot_many_quantiles <- function(df, y, x, type = "scatterplot", 
-                                taus = seq(0.05, 0.95, by = 0.05)) {
+                                taus = seq(0.05, 0.95, by = 0.05),
+                                square = FALSE) {
   
   # Build formula
   formula <- stringr::str_c(y, " ~ ", x)
@@ -27,14 +31,23 @@ plot_many_quantiles <- function(df, y, x, type = "scatterplot",
     graphics_anchor <- par()$pty
     par(pty = "s")
     
-    # Get axes limits to make plot 
-    min <- min(c(df[, x], df[, y]), na.rm = TRUE)
-    max <- max(c(df[, x], df[, y]), na.rm = TRUE)
+    if (square) {
+      
+      # Get axes limits to make plot 
+      min <- min(c(df[, x], df[, y]), na.rm = TRUE)
+      max <- max(c(df[, x], df[, y]), na.rm = TRUE)
+      
+      # Base plot, just points
+      plot(df[, x], df[, y], type = "p", xlim = c(min, max), ylim = c(min, max))
+      
+    } else {
+      
+      # Base plot, just points
+      plot(df[, x], df[, y], type = "p")
+      
+    }
     
     # grid(NULL, NULL, lty = 6, col = "lightgrey")
-    
-    # Base plot, just points
-    plot(df[, x], df[, y], type = "p", xlim = c(min, max), ylim = c(min, max))
     
     # Plot ordinary least squares line
     abline(lm(formula, data = df), lty = 2, col = "red")
