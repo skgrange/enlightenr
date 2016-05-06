@@ -1,8 +1,8 @@
 Package: enlightenr
 Type: Package
 Title: Convenient and robust functions for fancy statistical techniques
-Version: 0.0.6
-Date: 2016-04-29
+Version: 0.0.7
+Date: 2016-05-06
 Author: Stuart K. Grange
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: Convenient and robust functions for fancy statistical techniques 

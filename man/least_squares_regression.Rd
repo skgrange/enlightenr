@@ -16,7 +16,7 @@ quantile_regression(df, y, x, zero_intercept = FALSE, weights = NULL,
   tau = 0.5, method = "br", round = 6, plot = FALSE)
 }
 \description{
-\code{y} is a function of \code{x} \code{y = y(x)}.
+\code{y} is a function of \code{x} or \code{y = y(x)}.
 }
 \author{
 Stuart K. Grange
