@@ -4,16 +4,20 @@
 \alias{least_squares_regression}
 \alias{quantile_regression}
 \alias{robust_linear_regression}
+\alias{simple_linear_regression}
 \title{Function to apply linear regression techniques to observations.}
 \usage{
-least_squares_regression(df, y, x, zero_intercept = FALSE, weights = NULL,
-  round = 6, plot = FALSE)
+least_squares_regression(df, y, x, zero_intercept = FALSE, method = "qr",
+  weights = NULL, round = 6, plot = TRUE)
 
-robust_linear_regression(df, y, x, zero_intercept = FALSE, weights = NULL,
-  method = "M", round = 6, plot = FALSE)
+simple_linear_regression(df, y, x, zero_intercept = FALSE, method = "qr",
+  weights = NULL, round = 6, plot = TRUE)
+
+robust_linear_regression(df, y, x, zero_intercept = FALSE, method = "MM",
+  weights = NULL, round = 6, plot = TRUE)
 
 quantile_regression(df, y, x, zero_intercept = FALSE, weights = NULL,
-  tau = 0.5, method = "br", round = 6, plot = FALSE)
+  tau = 0.5, method = "br", round = 6, plot = TRUE)
 }
 \description{
 \code{y} is a function of \code{x} or \code{y = y(x)}.

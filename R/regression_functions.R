@@ -8,7 +8,8 @@
 #' 
 #' @export
 least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
-                                     weights = NULL,  round = 6, plot = FALSE) {
+                                     method = "qr", weights = NULL, round = 6, 
+                                     plot = TRUE) {
   
   # Drop tbl_df
   df <- threadr::base_df(df)
@@ -22,12 +23,28 @@ least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
   # Parse
   formula <- as.formula(formula)
   
+  # Get weights vector
+  if (!is.null(weights)) 
+    weights_vector <- df[, weights] else weights_vector <- NULL
+  
   # Model
-  fit <- lm(formula, data = df, weights)
+  fit <- lm(formula, data = df, method = method, weights = weights_vector)
   
   # Get tidy data from fit
   fit <- broom_sweep(fit, extra = TRUE, round)
-  fit$method <- "least_squares_regression"
+  
+  # Give some names
+  if (is.null(weights_vector)) {
+    
+    fit$method <- "least_squares_regression"
+    fit$method_name <- "Least squares regression"
+    
+  } else {
+    
+    fit$method <- "weighted_least_squares_regression"
+    fit$method_name <- "Weighted least squares regression"
+    
+  }
   
   if (plot) {
     
@@ -36,12 +53,12 @@ least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
     c <- ifelse(is.na(c), 0, c)
     
     # Add method
-    df$method <- fit$method[1]
+    df$method_name <- fit$method_name[1]
     
     plot <- ggplot(df, aes_string(x, y)) + 
       geom_point(pch = 1, colour = "dodgerblue", na.rm = TRUE) + 
       geom_abline(slope = m, intercept = c) + theme(aspect.ratio = 1) + 
-      facet_wrap("method")
+      facet_wrap("method_name")
     
     print(plot)
     
@@ -54,11 +71,22 @@ least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
 
 
 #' @rdname least_squares_regression
+#' @export
+simple_linear_regression <- least_squares_regression
+
+
+#' @rdname least_squares_regression
 #' @import ggplot2
 #' @export
 robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
-                                     weights = NULL, method = "M", round = 6,
-                                     plot = FALSE) {
+                                     method = "MM", weights = NULL, round = 6,
+                                     plot = TRUE) {
+  
+  # Ensure uppercase
+  method <- stringr::str_to_upper(method)
+  
+  if (!method %in% c("M", "MM")) 
+    stop("'method' must be 'M' or 'MM'.", call. = FALSE)
   
   # Drop tbl_df
   df <- threadr::base_df(df)
@@ -72,12 +100,40 @@ robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
   # Parse
   formula <- as.formula(formula)
   
+  # Get weights vector
+  if (!is.null(weights))
+    weights_vector <- df[, weights] else weights_vector <- NULL
+  
+  # The "best" MM-estimator does not allow for weights
+  if (method == "MM" & !is.null(weights)) {
+    
+    # No weighting
+    weights_vector <- NULL
+    
+    # Message
+    warning("The 'MM'-method cannot use weights. Therefore the weights have been removed.\nConsider altering 'method'.",
+            call. = FALSE)
+    
+  }
+  
   # Model
-  fit <- MASS::rlm(formula, data = df, weights, method = method)
+  fit <- MASS::rlm(formula, data = df, method = method, weights = weights_vector)
   
   # Get tidy data from fit
   fit <- broom_sweep(fit, extra = TRUE, round)
-  fit$method <- "robust_linear_regression"
+  
+  # Give some names
+  if (is.null(weights_vector)) {
+    
+    fit$method <- "robust_linear_regression"
+    fit$method_name <- "Robust linear regression"
+    
+  } else {
+    
+    fit$method <- "weighted_robust_linear_regression"
+    fit$method_name <- "Weighted robust linear regression"
+    
+  }
   
   if (plot) {
     
@@ -88,12 +144,12 @@ robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
     c <- ifelse(is.na(c), 0, c)
     
     # Add method
-    df$method <- fit$method[1]
+    df$method_name <- fit$method_name[1]
     
     plot <- ggplot(df, aes_string(x, y)) + 
       geom_point(pch = 1, colour = "darkorange", na.rm = TRUE) + 
       geom_abline(slope = m, intercept = c) + theme(aspect.ratio = 1) + 
-      facet_wrap("method")
+      facet_wrap("method_name")
     
     print(plot)
     
@@ -110,7 +166,7 @@ robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
 #' @export
 quantile_regression <- function(df, y, x, zero_intercept = FALSE,
                                 weights = NULL, tau = 0.5, method = "br", 
-                                round = 6, plot = FALSE) {
+                                round = 6, plot = TRUE) {
   
   # Drop tbl_df
   df <- threadr::base_df(df)
@@ -124,13 +180,29 @@ quantile_regression <- function(df, y, x, zero_intercept = FALSE,
   # Parse
   formula <- as.formula(formula)
   
+  # Get weights vector
+  if (!is.null(weights)) 
+    weights_vector <- df[, weights] else weights_vector <- NULL
+  
   # Model
-  fit <- quantreg::rq(formula, tau = tau, data = df, weights, method = method)
+  fit <- quantreg::rq(formula, tau = tau, data = df,  method = method, 
+                      weights = weights_vector)
   
   # Get tidy data from fit
   fit <- broom_sweep(fit, extra = TRUE, round)
-  fit$method <- "quantile_regresssion"
   
+  # Give some names
+  if (is.null(weights_vector)) {
+    
+    fit$method <- "quantile_regresssion"
+    fit$method_name <- "Quantile regression"
+    
+  } else {
+    
+    fit$method <- "weighted_quantile_regresssion"
+    fit$method_name <- "Weighted quantile regression"
+    
+  }
   
   if (plot) {
     
@@ -141,12 +213,12 @@ quantile_regression <- function(df, y, x, zero_intercept = FALSE,
     c <- ifelse(is.na(c), 0, c)
     
     # Add method
-    df$method <- fit$method[1]
+    df$method_name <- fit$method_name[1]
     
     plot <- ggplot(df, aes_string(x, y)) + 
-      geom_point(pch = 1, colour = "darkorange", na.rm = TRUE) + 
+      geom_point(pch = 1, colour = "purple", na.rm = TRUE) + 
       geom_abline(slope = m, intercept = c) + theme(aspect.ratio = 1) + 
-      facet_wrap("method")
+      facet_wrap("method_name")
     
     print(plot)
     

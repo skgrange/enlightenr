@@ -38,12 +38,13 @@ plot_many_quantiles <- function(df, y, x, type = "scatterplot",
       max <- max(c(df[, x], df[, y]), na.rm = TRUE)
       
       # Base plot, just points
-      plot(df[, x], df[, y], type = "p", xlim = c(min, max), ylim = c(min, max))
+      plot(df[, x], df[, y], type = "p", xlim = c(min, max), ylim = c(min, max),
+           xlab = x, ylab = y)
       
     } else {
       
       # Base plot, just points
-      plot(df[, x], df[, y], type = "p")
+      plot(df[, x], df[, y], type = "p", xlab = x, ylab = y)
       
     }
     

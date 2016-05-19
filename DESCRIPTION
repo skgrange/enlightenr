@@ -1,13 +1,15 @@
 Package: enlightenr
 Type: Package
 Title: Convenient and robust functions for fancy statistical techniques
-Version: 0.0.8
-Date: 2016-05-06
-Author: Stuart K. Grange
+Version: 0.0.11
+Date: 2016-05-19
+Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
+    role = c("cre", "aut"))
 Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
 Description: Convenient and robust functions for fancy statistical techniques 
     which can help find things in data. 
 License: GPL (>= 2)
+ByteCompile: true
 Imports:
     stringr,
     lubridate,
@@ -25,5 +27,4 @@ Imports:
     akima,
     fields,
     threadr
-Suggests:
 RoxygenNote: 5.0.1
