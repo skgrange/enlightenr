@@ -50,8 +50,9 @@ least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
     
     m <- extract_slope(fit)
     c <- extract_intercept(fit)
+    c <- ifelse(is.null(c), NA, c)
     c <- ifelse(is.na(c), 0, c)
-    
+
     # Add method
     df$method_name <- fit$method_name[1]
     

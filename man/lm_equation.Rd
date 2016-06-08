@@ -4,7 +4,7 @@
 \alias{lm_equation}
 \title{Function to get least squares regression equation as a string.}
 \usage{
-lm_equation(df, y, x)
+lm_equation(df, y, x, labels = TRUE, digits = 3)
 }
 \arguments{
 \item{df}{Data frame.}
@@ -12,6 +12,12 @@ lm_equation(df, y, x)
 \item{y}{\emph{y}-variable.}
 
 \item{x}{\emph{x}-variable.}
+
+\item{labels}{Should the equation show variable names rather than a generic
+\emph{y} and \emph{x}? Default is \code{TRUE}.}
+
+\item{digits}{Number of digits to display for the coefficents in the 
+equation. Default is \code{3}.}
 }
 \description{
 \code{lm_equation} is used for creating a string which can be plotted with
@@ -29,9 +35,9 @@ annotate("text", x = 200, y = 45, label = lm_equation(data_my1, "bc", "nox"),
 
 }
 \author{
-Ramnath Vaidyanathan
+Ramnath Vaidyanathan with some enhancement by Stuart K. Grange
 }
 \seealso{
-\href{http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph?answertab=votes#tab-top}{stackoverflow.com}
+\href{http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph?answertab=votes#tab-top}{stackoverflow}
 }
 
