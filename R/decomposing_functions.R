@@ -5,7 +5,7 @@
 #' @import ggplot2
 #' 
 #' @export
-decompose_stl <- function(df, variable = "value", plot = FALSE, 
+decompose_stl <- function(df, variable = "value", plot = TRUE, 
                           invalidate = TRUE) {
   
   if (!threadr::detect_averaging_period(df$date) == "month")
@@ -90,7 +90,7 @@ decompose_stl <- function(df, variable = "value", plot = FALSE,
 #' @author Stuart K. Grange
 #' 
 #' @export
-decompose_kz <- function(df, variable = "value", plot = FALSE, invalidate = TRUE) {
+decompose_kz <- function(df, variable = "value", plot = TRUE, invalidate = TRUE) {
   
   # Daily data
   if (!threadr::detect_averaging_period(df$date) == "day")
