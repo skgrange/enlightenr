@@ -4,7 +4,7 @@
 \alias{decompose_stl}
 \title{Function to decompose time-series with loess.}
 \usage{
-decompose_stl(df, variable = "value", plot = FALSE, invalidate = TRUE)
+decompose_stl(df, variable = "value", plot = TRUE, invalidate = TRUE)
 }
 \description{
 Function to decompose time-series with loess.

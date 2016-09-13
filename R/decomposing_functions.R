@@ -73,14 +73,14 @@ decompose_stl <- function(df, variable = "value", plot = TRUE,
     # Plot
     plot <- ggplot(df_decomposition_long, aes(date, value, colour = key)) + 
       geom_line() + facet_wrap("key", scales = "free_y", ncol = 1) + 
-      theme(legend.position = "none")
+      theme(legend.position = "none") + theme_minimal()
     
     print(plot)
     
   }
   
-  # Return
-  df_decomposition
+  # Return, only if assigned
+  invisible(df_decomposition)
   
 }
 
@@ -151,13 +151,13 @@ decompose_kz <- function(df, variable = "value", plot = TRUE, invalidate = TRUE)
     # Plot
     plot <- ggplot(df_decomposition_long, aes(date, value, colour = key)) + 
       geom_line(na.rm = TRUE) + facet_wrap("key", scales = "free_y", ncol = 1) + 
-      theme(legend.position = "none")
+      theme(legend.position = "none") + theme_minimal()
     
     print(plot)
     
   }
   
-  # Return
-  df_decomposition
+  # Return, only if assigned
+  invisible(df_decomposition)
   
 }
