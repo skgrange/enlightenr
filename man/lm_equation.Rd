@@ -2,9 +2,9 @@
 % Please edit documentation in R/lm_equation.R
 \name{lm_equation}
 \alias{lm_equation}
-\title{Function to get least squares regression equation as a string.}
+\title{Function to get least-squares regression equation as a string.}
 \usage{
-lm_equation(df, y, x, labels = TRUE, digits = 3)
+lm_equation(df, y, x, labels = TRUE, zero_intercept = FALSE, digits = 3)
 }
 \arguments{
 \item{df}{Data frame.}

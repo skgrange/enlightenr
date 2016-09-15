@@ -1,4 +1,4 @@
-#' Function to get least squares regression equation as a string. 
+#' Function to get least-squares regression equation as a string. 
 #' 
 #' \code{lm_equation} is used for creating a string which can be plotted with
 #' \strong{ggplot2}. 
@@ -32,19 +32,38 @@
 #' }
 #' 
 #' @export
-lm_equation <- function(df, y, x, labels = TRUE, digits = 3) {
+lm_equation <- function(df, y, x, labels = TRUE, zero_intercept = FALSE, 
+                        digits = 3) {
   
+  # Build formula
   formula <- stringr::str_c(y, " ~ ", x)
+  
+  # Catch intercept
+  if (zero_intercept) formula <- stringr::str_c(formula, " -1")
+  
+  # Parse
   formula <- as.formula(formula)
   
+  # Model
   m <- lm(formula, data = df)
   
-  eq <- substitute(
-    italic(y) == italic(x) %.% b + a * "," ~ ~ italic(R) ^ 2 ~ "=" ~ r2, 
-    list(a = format(coef(m)[1], digits = digits), 
-         b = format(coef(m)[2], digits = digits), 
-         r2 = format(summary(m)$r.squared, digits = digits)))
-  # italic(y) == a + b %.% italic(x) * "," ~ ~ italic(R) ^ 2 ~ "=" ~ r2, 
+  if (!zero_intercept) {
+    
+    eq <- substitute(
+      italic(y) == italic(x) %.% b + a * "," ~ ~ italic(R) ^ 2 ~ "=" ~ r2, 
+      list(a = format(coef(m)[1], digits = digits), 
+           b = format(coef(m)[2], digits = digits), 
+           r2 = format(summary(m)$r.squared, digits = digits)))
+    
+  } else {
+    
+    # Bit of replication but need to drop intercept coeff
+    eq <- substitute(
+      italic(y) == italic(x) %.% a * "," ~ ~ italic(R) ^ 2 ~ "=" ~ r2, 
+      list(a = format(coef(m)[1], digits = digits), 
+           r2 = format(summary(m)$r.squared, digits = digits)))
+    
+  }
   
   # To character
   eq <- as.character(as.expression(eq))
@@ -52,24 +71,38 @@ lm_equation <- function(df, y, x, labels = TRUE, digits = 3) {
   # A switch for when there is a negative intercept
   eq <- str_replace(eq, ' \\+ \"-', ' - \"')
   
-  # Parsing vectors to expression is hard, therefore do some replacing
-  if (labels) {
+  # Check if labels is logical
+  if (is.logical(labels)) {
     
-    # Get vector
-    labels <- c(y, x)
+    # Use input vector
+    if (labels) labels <- c(y, x) else labels <- c("y", "x")
     
-    # Do some formatting
-    labels <- ifelse(labels == "pm10", "PM[10]", labels)
-    labels <- ifelse(labels %in% c("pm25", "pm2.5"), "PM[2.5]", labels)
-    labels <- ifelse(labels %in% c("bc"), "BC", labels)
+  } else {
     
-    # Replace y and x
-    eq <- str_replace(eq, "italic\\(y\\)", labels[1])
-    eq <- str_replace(eq, "italic\\(x\\)", labels[2])
-    # eq <- str_replace(eq, "italic\\(y\\)", str_c("italic(", labels[1], ")"))
-    # eq <- str_replace(eq, "italic\\(x\\)", str_c("italic(", labels[2], ")"))
+    # If not logical, use the text
+    if (length(labels) != 2) 
+      stop("If 'labels' is not logical, the vector must have two elements.",
+           call. = FALSE)
+    
+    # Catch spaces
+    labels <- str_replace_all(labels, " ", " ~ ")
+    labels <- str_replace_all(labels, " ~ ~ ~ ", " ~ ")
     
   }
+    
+  # Parsing vectors to expression is hard, therefore do some replacing
+  # Do some formatting
+  labels <- ifelse(labels == "pm10", "PM[10]", labels)
+  labels <- ifelse(labels %in% c("pm25", "pm2.5"), "PM[2.5]", labels)
+  labels <- ifelse(labels %in% c("bc"), "BC", labels)
+  labels <- ifelse(labels == "nox", "NO[x]", labels)
+  labels <- ifelse(labels == "no2", "NO[2]", labels)
+  labels <- ifelse(labels == "ox", "OX", labels)
+  
+  # Replace y and x
+  eq <- str_replace(eq, "italic\\(y\\)", labels[1])
+  eq <- str_replace(eq, "italic\\(x\\)", labels[2])
+  
   
   # Return
   eq
