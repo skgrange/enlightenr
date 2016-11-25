@@ -8,8 +8,8 @@
 decompose_stl <- function(df, variable = "value", plot = TRUE, 
                           invalidate = TRUE) {
   
-  if (!threadr::detect_averaging_period(df$date) == "month")
-    df <- openair::timeAverage(df, avg.time = "month")
+  # Aggregate/pad
+  df <- openair::timeAverage(df, avg.time = "month")
   
   # Drop tbl_df
   df <- threadr::base_df(df)
@@ -92,9 +92,8 @@ decompose_stl <- function(df, variable = "value", plot = TRUE,
 #' @export
 decompose_kz <- function(df, variable = "value", plot = TRUE, invalidate = TRUE) {
   
-  # Daily data
-  if (!threadr::detect_averaging_period(df$date) == "day")
-    df <- openair::timeAverage(df, avg.time = "day")
+  # Aggregate/pad
+  df <- openair::timeAverage(df, avg.time = "day")
   
   # Drop tbl_df
   df <- threadr::base_df(df)
