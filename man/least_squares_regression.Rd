@@ -2,9 +2,9 @@
 % Please edit documentation in R/regression_functions.R
 \name{least_squares_regression}
 \alias{least_squares_regression}
-\alias{quantile_regression}
-\alias{robust_linear_regression}
 \alias{simple_linear_regression}
+\alias{robust_linear_regression}
+\alias{quantile_regression}
 \title{Function to apply linear regression techniques to observations.}
 \usage{
 least_squares_regression(df, y, x, zero_intercept = FALSE, method = "qr",
@@ -25,4 +25,3 @@ quantile_regression(df, y, x, zero_intercept = FALSE, weights = NULL,
 \author{
 Stuart K. Grange
 }
-

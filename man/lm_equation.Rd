@@ -34,10 +34,9 @@ annotate("text", x = 200, y = 45, label = lm_equation(data_my1, "bc", "nox"),
 }
 
 }
-\author{
-Ramnath Vaidyanathan with some enhancement by Stuart K. Grange
-}
 \seealso{
 \href{http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph?answertab=votes#tab-top}{stackoverflow}
 }
-
+\author{
+Ramnath Vaidyanathan with some enhancement by Stuart K. Grange
+}

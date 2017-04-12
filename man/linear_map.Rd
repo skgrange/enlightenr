@@ -19,4 +19,3 @@ Function to apply a linear map transformation to a numeric vector.
 \author{
 Stuart K. Grange
 }
-

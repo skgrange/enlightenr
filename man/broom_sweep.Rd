@@ -2,8 +2,8 @@
 % Please edit documentation in R/statistical_helpers.R
 \name{broom_sweep}
 \alias{broom_sweep}
-\alias{extract_intercept}
 \alias{extract_slope}
+\alias{extract_intercept}
 \title{Function to further clean \strong{broom}'s tidy data frames.}
 \usage{
 broom_sweep(fit, extra = TRUE, round = 6)
@@ -18,4 +18,3 @@ Function to further clean \strong{broom}'s tidy data frames.
 \author{
 Stuart K. Grange
 }
-

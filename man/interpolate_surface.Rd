@@ -28,4 +28,3 @@ and the \strong{fields} package to smooth the surface.
 \author{
 Stuart K. Grange
 }
-

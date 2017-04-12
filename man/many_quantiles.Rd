@@ -29,4 +29,3 @@ frame.
 \author{
 Stuart K. Grange
 }
-

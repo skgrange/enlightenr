@@ -12,4 +12,3 @@ Function to decompose time-series with loess.
 \author{
 Stuart K. Grange
 }
-

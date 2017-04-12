@@ -24,4 +24,3 @@ The prewhitening algorithm helps deal with autocorrelation.
 \author{
 Stuart K. Grange
 }
-

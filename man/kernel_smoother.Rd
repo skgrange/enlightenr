@@ -46,10 +46,9 @@ vector_smooth_epanechnikov <- kernel_smoother(vector, "epanechnikov")
 # plot(vector_smooth_epanechnikov, type = "l")
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \href{https://en.wikipedia.org/wiki/Kernel_(statistics)}{wikipedia}
 }
-
+\author{
+Stuart K. Grange
+}

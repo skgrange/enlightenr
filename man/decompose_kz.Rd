@@ -12,4 +12,3 @@ Function to decompose time-series with Kolmogorov-Zurbenko filters.
 \author{
 Stuart K. Grange
 }
-

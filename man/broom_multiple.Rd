@@ -18,4 +18,3 @@ Function to apply all of \strong{broom}'s tidying functions and return a list.
 \author{
 Stuart K. Grange
 }
-

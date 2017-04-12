@@ -28,4 +28,3 @@ Function to quickly plot many quantiles regression lines on a scatterplot.
 \author{
 Stuart K. Grange
 }
-
