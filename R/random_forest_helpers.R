@@ -118,12 +118,16 @@ ggimportance <- function(list_model) {
   # Tidy output
   df <- importance_tidy(list_model)
   
+  # To percent
+  df$increase_in_mse <- df$increase_in_mse / 100
+  
   plot <- ggplot(df, aes(increase_in_mse, reorder(variable, increase_in_mse), 
                          colour = increase_in_mse)) + 
     geom_point(size = 4) + theme_minimal() + 
     geom_segment(aes(x = 0, y = variable, xend = increase_in_mse, yend = variable)) + 
     viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8) +
-    ylab("Variable") + theme(legend.position = "none")
+    ylab("Variable") + theme(legend.position = "none") + 
+    scale_x_continuous(labels = scales::percent)
   
   return(plot)
   
