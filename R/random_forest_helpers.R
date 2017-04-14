@@ -149,21 +149,45 @@ ggimportance <- function(list_model) {
 #' @export
 ggtrees <- function(list_model) {
   
-  # Get vectors
-  error <- list_model$mse
-  trees <- seq(1, length(error), 1)
+  mode <- list_model$type
   
-  # Build data frame
-  df <- data.frame(
-    trees,
-    error
-  )
+  if (mode == "regression") {
+    
+    # Get vectors
+    error <- list_model$mse
+    trees <- seq(1, length(error), 1)
+    
+    # Build data frame
+    df <- data.frame(
+      trees,
+      error
+    )
+    
+    # Plot
+    plot <- ggplot(df, aes(trees, error, colour = error)) + geom_line(size = 1) + 
+      viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8) + 
+      theme_minimal() + theme(legend.position = "none") + ylab("MSE") + 
+      xlab("Trees")
+    
+  }
   
-  # Plot
-  plot <- ggplot(df, aes(trees, error, colour = error)) + geom_line(size = 1) + 
-    viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8) + 
-    theme_minimal() + theme(legend.position = "none") + ylab("MSE") + 
-    xlab("Trees")
+  if (mode == "classification") {
+    
+    # Get matrix
+    matrix_error <- list_model$err.rate
+    
+    # Build data frame
+    df <- data.frame(matrix_error)
+    df$trees <- seq(1, nrow(df), 1)
+    df <- tidyr::gather(df, variable, value, -trees)
+    
+    # Plot
+    plot <- ggplot(df, aes(trees, value, colour = variable)) + geom_line(size = 1) + 
+      viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8,
+                                    discrete = TRUE) +
+      theme_minimal() + ylab("Error") + xlab("Trees")
+    
+  }
   
   return(plot)
   
