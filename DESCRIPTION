@@ -1,7 +1,7 @@
 Package: enlightenr
 Type: Package
 Title: Convenient and robust functions for fancy statistical techniques
-Version: 0.0.20
+Version: 0.0.21
 Date: 2017-05-15
 Authors@R: person("Stuart", "Grange", email = "s.k.grange@gmail.com", 
     role = c("cre", "aut"))
@@ -30,7 +30,8 @@ Imports:
     fields,
     randomForest,
     viridis,
-    scales
+    scales,
+    doMC
 Suggests:
     threadr
 RoxygenNote: 6.0.1
