@@ -21,6 +21,9 @@ interpolate_surface(df, x = "x", y = "y", z = "z", smooth = TRUE,
 
 \item{length}{Length of grid to interpolate to.}
 }
+\value{
+Data frame.
+}
 \description{
 \code{interpolate_surface} uses the \strong{akima} package to interpolate
 and the \strong{fields} package to smooth the surface.

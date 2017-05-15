@@ -1,4 +1,3 @@
-
 #' Function to conveniently interpolate a reglar surface from irregular 
 #' observations. 
 #' 
@@ -11,6 +10,8 @@
 #' @param z Variable. 
 #' @param smooth Should the surface be smoothed? 
 #' @param length Length of grid to interpolate to. 
+#' 
+#' @return Data frame. 
 #' 
 #' @author Stuart K. Grange
 #' 

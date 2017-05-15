@@ -78,18 +78,27 @@ partial_plot_do_er <- function(list_model, df, variable) {
 importance_tidy <- function(list_model, scale = TRUE) {
   
   # Get things
-  matrix <- importance(list_model, scale = scale)
+  matrix <- randomForest::importance(list_model, scale = scale)
+  colnames(matrix) <- stringr::str_replace(colnames(matrix), "%", "")
   names <- row.names(matrix)
-  increase_in_mse <- unname(matrix[, 1])
-  increase_in_node_purity <- unname(matrix[, 2])
   
-  # Build data frame
   df <- data.frame(
     variable = names,
-    increase_in_mse,
-    increase_in_node_purity,
+    matrix,
     stringsAsFactors = FALSE
   )
+  
+  row.names(df) <- NULL
+  
+  # Add variables if they do no exist
+  if (!any(grepl("IncNodePurity", names(df)))) df$IncNodePurity <- NA
+  if (!any(grepl("IncMSE", names(df)))) df$IncMSE <- NA
+  
+  # Clean names
+  names(df) <- ifelse(
+    names(df) == "IncNodePurity", "increase_in_node_purity", names(df))
+  
+  names(df) <- ifelse(names(df) == "IncMSE", "increase_in_mse", names(df))
   
   # Order by importance
   df <- dplyr::arrange(df, -increase_in_mse)
