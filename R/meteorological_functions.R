@@ -65,7 +65,7 @@ prepare_input_data <- function(df) {
 #' 
 #' @export
 calculate_model <- function(list_input_data, variables = NA, ntree = 200,
-                            verbose = TRUE) {
+                            mtry = 3, nodesize = 3, verbose = TRUE) {
   
   if (!class(list_input_data) == "ssmodel_data") 
     stop("Not of correct class.", call. = FALSE)
@@ -94,8 +94,8 @@ calculate_model <- function(list_input_data, variables = NA, ntree = 200,
     do.trace = do.trace, 
     keep.forest = TRUE, 
     importance = TRUE,
-    mtry = 5, 
-    nodesize = 1, 
+    mtry = mtry, 
+    nodesize = nodesize, 
     ntree = ntree
   )
   

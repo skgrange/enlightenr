@@ -4,8 +4,8 @@
 \alias{calculate_model}
 \title{Function to model concentration based on meteorological and time variables.}
 \usage{
-calculate_model(list_input_data, variables = NA, ntree = 200,
-  verbose = TRUE)
+calculate_model(list_input_data, variables = NA, ntree = 200, mtry = 3,
+  nodesize = 3, verbose = TRUE)
 }
 \value{
 Named list containing two data frames and a model object.
