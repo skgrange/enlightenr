@@ -16,22 +16,27 @@
 #' \code{\link{ggimportance}}
 #'
 #' @export
-ggpartial <- function(list_model, df, variable) {
+ggpartial <- function(list_model, df, variable, reorder = TRUE) {
   
   # For variable length
   df_partial <- plyr::ldply(variable, function(x) 
-    partial_plot_do_er(list_model, df, x))
+    partial_plot_predict(list_model, df, x))
   
   # Categorical variables
-  if (class(df_partial$x) %in% c("character", "factor")) {
-    
-    plot <- ggplot(df_partial, aes(reorder(x, y), y, colour = reorder(x, y))) + 
-      geom_point(size = 4) + theme_minimal() + theme(legend.position = "none") +
-      facet_wrap("variable", scales = "free_x") +
-      viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8,
-                                    discrete = TRUE)
-    
+  if (class(df_partial$x) %in% c("character", "factor") & reorder) {
+      
+      plot <- ggplot(df_partial, aes(reorder(x, y), y, colour = reorder(x, y))) + 
+        geom_point(size = 4) + theme_minimal() + theme(legend.position = "none") +
+        facet_wrap("variable", scales = "free_x") +
+        viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8,
+                                      discrete = TRUE)
+      
+
   } else {
+    
+    # For factors
+    if (!is.numeric(df_partial[, "x"])) 
+      df_partial[, "x"] <- as.numeric(df_partial[, "x"])
     
     plot <- ggplot(df_partial, aes(x, y, colour = y)) + 
       geom_point(size = 4) + theme_minimal() + theme(legend.position = "none") + 
@@ -45,7 +50,25 @@ ggpartial <- function(list_model, df, variable) {
   
 }
 
-partial_plot_do_er <- function(list_model, df, variable) {
+
+#' Function to calculate partial dependencies from a \code{randomForest} model. 
+#' 
+#' @param list_model A \code{randomForest} model. 
+#' 
+#' @param df Data frame to be used for prediction. 
+#' 
+#' @param variable The variable to calculate the partial dependency of. 
+#' 
+#' @author Stuart K. Grange
+#' 
+#' @return Data frame. 
+#' 
+#' @export
+partial_plot_predict <- function(list_model, df, variable) {
+  
+  # Check
+  if (!length(variable) == 1) 
+    stop("Only one 'variable' can be used", call. = FALSE)
   
   # No nas, for numeric variables I think
   df <- df[!is.na(df[, variable]), ]

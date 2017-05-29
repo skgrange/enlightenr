@@ -4,7 +4,7 @@
 \alias{ggpartial}
 \title{Function to plot partial dependence plots for a \code{randomForest} object.}
 \usage{
-ggpartial(list_model, df, variable)
+ggpartial(list_model, df, variable, reorder = TRUE)
 }
 \arguments{
 \item{list_model}{A \code{randomForest} object.}
