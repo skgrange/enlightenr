@@ -4,7 +4,7 @@
 \alias{partial_plot_predict}
 \title{Function to calculate partial dependencies from a \code{randomForest} model.}
 \usage{
-partial_plot_predict(list_model, df, variable)
+partial_plot_predict(list_model, df, variable, as.character = FALSE)
 }
 \arguments{
 \item{list_model}{A \code{randomForest} model.}
@@ -12,6 +12,10 @@ partial_plot_predict(list_model, df, variable)
 \item{df}{Data frame to be used for prediction.}
 
 \item{variable}{The variable to calculate the partial dependency of.}
+
+\item{as.character}{Should the variables be forced to be a character data 
+type? This is helpful when binding many returns from 
+\code{partial_plot_predict}.}
 }
 \value{
 Data frame.

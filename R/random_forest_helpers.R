@@ -59,12 +59,16 @@ ggpartial <- function(list_model, df, variable, reorder = TRUE) {
 #' 
 #' @param variable The variable to calculate the partial dependency of. 
 #' 
+#' @param as.character Should the variables be forced to be a character data 
+#' type? This is helpful when binding many returns from 
+#' \code{partial_plot_predict}. 
+#' 
 #' @author Stuart K. Grange
 #' 
 #' @return Data frame. 
 #' 
 #' @export
-partial_plot_predict <- function(list_model, df, variable) {
+partial_plot_predict <- function(list_model, df, variable, as.character = FALSE) {
   
   # Check
   if (!length(variable) == 1) 
@@ -79,6 +83,9 @@ partial_plot_predict <- function(list_model, df, variable) {
   
   # Add identifier
   df <- cbind(variable, data.frame(list_predict))
+  
+  # Force variables to be characters, useful for binding data frames
+  if (as.character) df[, 2:3] <- lapply(df[, 2:3], as.character)
   
   return(df)
   
