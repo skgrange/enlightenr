@@ -231,3 +231,13 @@ ggtrees <- function(list_model) {
   return(plot)
   
 }
+
+
+#' @export
+extract_rf_mse <- function(list_model, na.rm = FALSE)
+  min(list_model$mse, na.rm = na.rm)
+
+
+#' @export
+extract_rf_r_squared <- function(list_model, na.rm = FALSE)
+  max(list_model$rsq, na.rm = na.rm) * 100
