@@ -27,7 +27,7 @@ make_prediction <- function(model, df) {
   if (model_class == "gam") {
     
     # Seems to be generic
-    x <- unname(predict(model, df))
+    x <- as.vector(unname(predict(model, df)))
     
   } else if (model_class == "randomForest.formula") {
     
