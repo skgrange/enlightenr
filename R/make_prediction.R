@@ -27,7 +27,10 @@ make_prediction <- function(model, df) {
   if (model_class == "gam") {
     
     # Seems to be generic
-    x <- as.vector(unname(predict(model, df)))
+    x <- unname(predict(model, df))
+    
+    # A one dimensional matrix? A little odd, drop
+    attr(x, "dim") <- NULL
     
   } else if (model_class == "randomForest.formula") {
     
@@ -47,6 +50,10 @@ make_prediction <- function(model, df) {
       df, 
       n.trees = length(model$trees)
     )
+    
+  } else if (model_class == "lm") {
+    
+    x <- unname(predict(model, df))
     
   } else {
     
