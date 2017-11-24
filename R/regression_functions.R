@@ -65,8 +65,7 @@ least_squares_regression <- function(df, y, x, zero_intercept = FALSE,
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }
 
@@ -156,8 +155,7 @@ robust_linear_regression <- function(df, y, x, zero_intercept = FALSE,
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }
 
@@ -225,7 +223,6 @@ quantile_regression <- function(df, y, x, zero_intercept = FALSE,
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }

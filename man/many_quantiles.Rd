@@ -20,7 +20,7 @@ many_quantiles(df, y, x, taus = seq(0.05, 0.95, by = 0.05), round = 6)
 data frame. Default is 6.}
 }
 \value{
-Data frame with model coefficents.
+Data frame.
 }
 \description{
 Function to apply many quantile regression models and return a tidy data 

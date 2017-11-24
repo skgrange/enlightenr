@@ -68,9 +68,8 @@ kernel_smoother <- function(x, kernel = "gaussian") {
   
   if (kernel %in% c("biweight", "quartic"))
     x <- 15 / 16 * (1 - x ^ 2) ^ 2 * indicator_function(x)
-    
-  # Return
-  x
+  
+  return(x)
   
 }
 

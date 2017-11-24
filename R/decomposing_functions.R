@@ -5,7 +5,7 @@
 #' @import ggplot2
 #' 
 #' @export
-decompose_stl <- function(df, variable = "value", plot = TRUE, 
+decompose_stl <- function(df, variable = "value", plot = FALSE, 
                           invalidate = TRUE) {
   
   # Aggregate/pad
@@ -79,8 +79,7 @@ decompose_stl <- function(df, variable = "value", plot = TRUE,
     
   }
   
-  # Return, only if assigned
-  invisible(df_decomposition)
+  return(df_decomposition)
   
 }
 
@@ -90,7 +89,8 @@ decompose_stl <- function(df, variable = "value", plot = TRUE,
 #' @author Stuart K. Grange
 #' 
 #' @export
-decompose_kz <- function(df, variable = "value", plot = TRUE, invalidate = TRUE) {
+decompose_kz <- function(df, variable = "value", plot = FALSE, 
+                         invalidate = TRUE) {
   
   # Aggregate/pad
   df <- openair::timeAverage(df, avg.time = "day")
@@ -156,7 +156,6 @@ decompose_kz <- function(df, variable = "value", plot = TRUE, invalidate = TRUE)
     
   }
   
-  # Return, only if assigned
-  invisible(df_decomposition)
+  return(df_decomposition)
   
 }

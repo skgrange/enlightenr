@@ -12,6 +12,9 @@ broom_multiple(model, transformed = FALSE)
 \item{transformed}{Should the transformed original data be returned too? 
 Default is \code{FALSE}.}
 }
+\value{
+List.
+}
 \description{
 Function to apply all of \strong{broom}'s tidying functions and return a list.
 }

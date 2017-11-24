@@ -103,8 +103,6 @@ lm_equation <- function(df, y, x, labels = TRUE, zero_intercept = FALSE,
   eq <- str_replace(eq, "italic\\(y\\)", labels[1])
   eq <- str_replace(eq, "italic\\(x\\)", labels[2])
   
-  
-  # Return
-  eq
+  return(eq)
   
 }

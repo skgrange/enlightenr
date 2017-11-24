@@ -45,8 +45,7 @@ ggpartial <- function(list_model, df, variable, reorder = TRUE) {
     
   }
   
-  # Return
-  plot
+  return(plot)
   
 }
 

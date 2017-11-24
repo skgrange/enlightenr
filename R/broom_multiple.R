@@ -1,10 +1,13 @@
 #' Function to apply all of \strong{broom}'s tidying functions and return a list.
 #' 
 #' @param model A model object. 
+#' 
 #' @param transformed Should the transformed original data be returned too? 
 #' Default is \code{FALSE}. 
 #' 
 #' @author Stuart K. Grange
+#' 
+#' @return List. 
 #' 
 #' @export
 broom_multiple <- function(model, transformed = FALSE) {
@@ -27,7 +30,6 @@ broom_multiple <- function(model, transformed = FALSE) {
   index <- sapply(list_broom, is.null)
   list_broom <- list_broom[!index]
   
-  # Return
-  list_broom
+  return(list_broom)
   
 }

@@ -4,7 +4,7 @@
 \alias{decompose_kz}
 \title{Function to decompose time-series with Kolmogorov-Zurbenko filters.}
 \usage{
-decompose_kz(df, variable = "value", plot = TRUE, invalidate = TRUE)
+decompose_kz(df, variable = "value", plot = FALSE, invalidate = TRUE)
 }
 \description{
 Function to decompose time-series with Kolmogorov-Zurbenko filters.

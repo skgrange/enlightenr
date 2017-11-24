@@ -34,8 +34,7 @@ broom_sweep <- function(fit, extra = TRUE, round = 6) {
   # Round
   if (!is.na(round)) df <- threadr::round_numeric(df, round)
   
-  # Return
-  df
+  return(df)
   
 }
 
@@ -45,10 +44,9 @@ broom_sweep <- function(fit, extra = TRUE, round = 6) {
 extract_slope <- function(df) {
   
  x <- as.numeric(df[df$term != "(Intercept)", ][2])
- 
  if (is.na(x)) x <- df$slope
- 
- x
+ if (is.null(x)) x <- NA
+ return(x)
    
 }
 
@@ -58,9 +56,8 @@ extract_slope <- function(df) {
 extract_intercept <- function(df) {
   
   x <- as.numeric(df[df$term == "(Intercept)", ][2])
-  
   if (is.na(x)) x <- df$intercept
-  
-  x
+  if (is.null(x)) x <- NA
+  return(x)
   
 }

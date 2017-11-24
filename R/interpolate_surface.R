@@ -5,10 +5,15 @@
 #' and the \strong{fields} package to smooth the surface.
 #' 
 #' @param df Data frame.
+#' 
 #' @param x Variable.
+#' 
 #' @param y Variable. 
+#' 
 #' @param z Variable. 
+#' 
 #' @param smooth Should the surface be smoothed? 
+#' 
 #' @param length Length of grid to interpolate to. 
 #' 
 #' @return Data frame. 
@@ -45,7 +50,6 @@ interpolate_surface <- function(df, x = "x", y = "y", z = "z", smooth = TRUE,
   # Alter names
   names(df_surface) <- c(x, y, z)
   
-  # Return
-  df_surface
+  return(df_surface)
   
 }

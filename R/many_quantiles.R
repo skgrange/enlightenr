@@ -12,7 +12,7 @@
 #' @param round Decimal point to round all numeric variables in the returned 
 #' data frame. Default is 6. 
 #' 
-#' @return Data frame with model coefficents. 
+#' @return Data frame.
 #' 
 #' @author Stuart K. Grange
 #' 
@@ -57,7 +57,6 @@ many_quantiles <- function(df, y, x, taus = seq(0.05, 0.95, by = 0.05),
   # Round
   df_models <- threadr::round_numeric(df_models, round = round)
   
-  # Return
-  df_models
+  return(df_models)
   
 }

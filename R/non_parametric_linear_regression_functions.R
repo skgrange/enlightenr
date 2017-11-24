@@ -49,8 +49,7 @@ theil_sen_estimator <- function(df, y, x, round = 6, plot = FALSE) {
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }
 
@@ -98,8 +97,7 @@ siegel_repeated_medians <- function(df, y, x, round = 6, plot = FALSE) {
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }
 
@@ -160,7 +158,6 @@ theil_sen_prewhiten <- function(x, method = "yuepilon", round = 6, plot = FALSE)
     
   }
   
-  # Return
-  fit
+  return(fit)
   
 }
