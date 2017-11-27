@@ -1,6 +1,6 @@
 #' Function to predict using a model object and return a vector. 
 #' 
-#' @param list_model Model object which can be used with \code{\link{predict}}. 
+#' @param model Model object which can be used with \code{\link{predict}}. 
 #' 
 #' @param df Data frame containing input data which can be used by \code{model},
 #' not always needed. 

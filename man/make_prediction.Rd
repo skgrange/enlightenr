@@ -7,10 +7,10 @@
 make_prediction(model, df)
 }
 \arguments{
+\item{model}{Model object which can be used with \code{\link{predict}}.}
+
 \item{df}{Data frame containing input data which can be used by \code{model},
 not always needed.}
-
-\item{list_model}{Model object which can be used with \code{\link{predict}}.}
 }
 \value{
 Numeric vector.
