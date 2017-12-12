@@ -58,6 +58,8 @@ ggpartial <- function(list_model, df, variable, reorder = TRUE) {
 #' 
 #' @param variable The variable to calculate the partial dependency of. 
 #' 
+#' @param n Number of observations to predict? 
+#' 
 #' @param as.character Should the variables be forced to be a character data 
 #' type? This is helpful when binding many returns from 
 #' \code{partial_plot_predict}. 
@@ -67,7 +69,8 @@ ggpartial <- function(list_model, df, variable, reorder = TRUE) {
 #' @return Data frame. 
 #' 
 #' @export
-partial_plot_predict <- function(list_model, df, variable, as.character = FALSE) {
+partial_plot_predict <- function(list_model, df, variable, n = 100, 
+                                 as.character = FALSE) {
   
   # Check
   if (!length(variable) == 1) 
@@ -77,8 +80,16 @@ partial_plot_predict <- function(list_model, df, variable, as.character = FALSE)
   df <- df[!is.na(df[, variable]), ]
   
   # Call the function, eval issues here
-  list_predict <- do.call(getFromNamespace("partialPlot", "randomForest"), 
-    list(x = list_model, pred.data = df, x.var = variable, plot = FALSE))
+  list_predict <- do.call(
+    getFromNamespace("partialPlot", "randomForest"), 
+    list(
+      x = list_model, 
+      pred.data = df, 
+      x.var = variable, 
+      n.pt = n,
+      plot = FALSE
+    )
+  )
   
   # Add identifier
   df <- cbind(variable, data.frame(list_predict))
@@ -125,7 +136,10 @@ importance_tidy <- function(list_model, scale = TRUE) {
   
   # Clean names
   names(df) <- ifelse(
-    names(df) == "IncNodePurity", "increase_in_node_purity", names(df))
+    names(df) == "IncNodePurity", 
+    "increase_in_node_purity", 
+    names(df)
+  )
   
   names(df) <- ifelse(names(df) == "IncMSE", "increase_in_mse", names(df))
   
@@ -159,12 +173,19 @@ ggimportance <- function(list_model) {
   # To percent
   df$increase_in_mse <- df$increase_in_mse / 100
   
-  plot <- ggplot(df, aes(increase_in_mse, reorder(variable, increase_in_mse), 
-                         colour = increase_in_mse)) + 
-    geom_point(size = 4) + theme_minimal() + 
+  plot <- ggplot(
+    df, 
+    aes(
+      increase_in_mse, 
+      reorder(variable, increase_in_mse), 
+      colour = increase_in_mse)
+  ) + 
+    geom_point(size = 4) + 
+    theme_minimal() + 
     geom_segment(aes(x = 0, y = variable, xend = increase_in_mse, yend = variable)) + 
     viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8) +
-    ylab("Variable") + theme(legend.position = "none") + 
+    ylab("Variable") + 
+    theme(legend.position = "none") + 
     scale_x_continuous(labels = scales::percent)
   
   return(plot)
@@ -202,9 +223,12 @@ ggtrees <- function(list_model) {
     )
     
     # Plot
-    plot <- ggplot(df, aes(trees, error, colour = error)) + geom_line(size = 1) + 
+    plot <- ggplot(df, aes(trees, error, colour = error)) + 
+      geom_line(size = 1) + 
       viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8) + 
-      theme_minimal() + theme(legend.position = "none") + ylab("MSE") + 
+      theme_minimal() +
+      theme(legend.position = "none") + 
+      ylab("MSE") + 
       xlab("Trees")
     
   }
@@ -220,10 +244,17 @@ ggtrees <- function(list_model) {
     df <- tidyr::gather(df, variable, value, -trees)
     
     # Plot
-    plot <- ggplot(df, aes(trees, value, colour = variable)) + geom_line(size = 1) + 
-      viridis::scale_colour_viridis(option = "inferno", begin = 0.3, end = 0.8,
-                                    discrete = TRUE) +
-      theme_minimal() + ylab("Error") + xlab("Trees")
+    plot <- ggplot(df, aes(trees, value, colour = variable)) + 
+      geom_line(size = 1) + 
+      viridis::scale_colour_viridis(
+        option = "inferno", 
+        begin = 0.3, 
+        end = 0.8,
+        discrete = TRUE
+      ) +
+      theme_minimal() + 
+      ylab("Error") + 
+      xlab("Trees")
     
   }
   

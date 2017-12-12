@@ -69,7 +69,7 @@ pull_model_mse <- function(model) {
   
   if (class(model)[1] == "randomForest.formula") {
     
-    x <- max(model$mse)
+    x <- min(model$mse)
     
   } else {
     
